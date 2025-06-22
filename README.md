@@ -147,7 +147,9 @@ Liveness and Readiness Probes
 Scaling Strategies
 
 1. Introduction to Kubernetes
+
 What is Kubernetes?
+
 Kubernetes (often abbreviated as K8s) is an open-source container orchestration platform designed to automate the deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery.
 
 At its core, Kubernetes helps you manage your containerized workloads and services, ensuring they run where and when you want them to, and scale up or down as needed.
@@ -187,13 +189,13 @@ A Kubernetes cluster consists of a set of worker machines, called nodes, that ho
 The worker nodes host the Pods that are the components of the application workload. The control plane manages the worker nodes and the Pods in the cluster.
 
 
-(Suggestion: Replace this placeholder with an actual diagram showing Control Plane and Worker Nodes)
-
 Core Concepts Explained
-Pods
+
+Po**ds**
+
 The smallest deployable units of computing that you can create and manage in Kubernetes. A Pod (like a pea pod) encapsulates one or more containers (e.g., Docker containers), storage resources, a unique network IP, and options that govern how the containers should run.
 
-Why Pods?
+**Why Pods?**
 
 Co-location: Containers in a Pod are always co-located and co-scheduled on the same node.
 
@@ -215,16 +217,17 @@ spec:
     ports:
     - containerPort: 80
 
-Deployments
+**Deployments**
+
 Deployments are higher-level objects that manage the lifecycle of Pods. They ensure that a specified number of Pod replicas are running at any given time and provide declarative updates to Pods and ReplicaSets.
 
-Key features:
+**Key features**:
 
-Declarative Updates: You describe the desired state, and Kubernetes makes it happen.
+**Declarative Updates**: You describe the desired state, and Kubernetes makes it happen.
 
-Rollouts & Rollbacks: Safely update applications and easily revert to previous versions if needed.
+**Rollouts & Rollbacks:** Safely update applications and easily revert to previous versions if needed.
 
-Self-healing: Deployments use ReplicaSets to ensure the desired number of Pods are always running.
+**Self-healing**: Deployments use ReplicaSets to ensure the desired number of Pods are always running.
 
 # Example: A simple Deployment definition
 apiVersion: apps/v1
@@ -249,18 +252,18 @@ spec:
         ports:
         - containerPort: 80
 
-Services
+# Services
 Services define a logical set of Pods and a policy by which to access them. They enable loose coupling between dependent Pods. Even if Pods fail or are rescheduled, the Service provides a stable endpoint for communication.
 
 Service Types (briefly introduced here, detailed later):
 
-ClusterIP: Internal-only IP, default type.
+**ClusterIP**: Internal-only IP, default type.
 
-NodePort: Exposes the Service on a static port on each Node's IP.
+**NodePort**: Exposes the Service on a static port on each Node's IP.
 
-LoadBalancer: Exposes the Service externally using a cloud provider's load balancer.
+**LoadBalancer**: Exposes the Service externally using a cloud provider's load balancer.
 
-ExternalName: Maps a Service to an arbitrary external CNAME.
+**ExternalName**: Maps a Service to an arbitrary external CNAME.
 
 # Example: A simple ClusterIP Service
 apiVersion: v1
@@ -276,7 +279,7 @@ spec:
       targetPort: 80 # Pod port
   type: ClusterIP
 
-Namespaces
+# Namespaces
 Namespaces provide a mechanism for isolating groups of resources within a single Kubernetes cluster. They are used to divide cluster resources between multiple users or teams.
 
 Benefits:
