@@ -1,6 +1,6 @@
 # Kubernetes
 This repository have full Kubernetes Files
-Kubernetes Architecture: From Scratch to Advanced
+## **Kubernetes Architecture:** From Scratch to Advanced
 Welcome to the Kubernetes Architecture repository! This resource is designed to be a comprehensive guide to understanding Kubernetes, starting from its fundamental concepts and progressing to advanced topics and architectural considerations. Whether you're new to container orchestration or a seasoned professional looking to deepen your understanding, this repository aims to provide clear, concise, and well-structured information.
 
 # Table of Contents
@@ -154,12 +154,12 @@ Kubernetes (often abbreviated as K8s) is an open-source container orchestration 
 
 At its core, Kubernetes helps you manage your containerized workloads and services, ensuring they run where and when you want them to, and scale up or down as needed.
 
-**Why Kubernetes?** The Problems it Solves
+### **Why Kubernetes?** The Problems it Solves
 Before Kubernetes, managing containerized applications at scale was challenging due to issues like:
 
-**Scaling:** Manually scaling applications up or down based on demand.
+### **Scaling:** Manually scaling applications up or down based on demand.
 
-**Self-healing:** Detecting and recovering from container failures.
+### **Self-healing:** Detecting and recovering from container failures.
 
 **Load Balancing**: Distributing network traffic across multiple instances of an application.
 
@@ -183,7 +183,7 @@ Kubernetes addresses these problems by providing a robust framework for automati
 
 **Cost Optimization:** Better resource utilization leads to reduced infrastructure costs.
 
-2. # Kubernetes Fundamentals: The Building Blocks
+# 2.Kubernetes Fundamentals: The Building Blocks
 
 ## The Kubernetes Cluster: A High-Level View
 
@@ -198,7 +198,7 @@ Core Concepts Explained
 
 The smallest deployable units of computing that you can create and manage in Kubernetes. A Pod (like a pea pod) encapsulates one or more containers (e.g., Docker containers), storage resources, a unique network IP, and options that govern how the containers should run.
 
-**Why Pods?**
+## **Why Pods?**
 
 Co-location: Containers in a Pod are always co-located and co-scheduled on the same node.
 
@@ -220,11 +220,11 @@ spec:
     ports:
     - containerPort: 80
 
-**Deployments**
+## **Deployments**
 
 Deployments are higher-level objects that manage the lifecycle of Pods. They ensure that a specified number of Pod replicas are running at any given time and provide declarative updates to Pods and ReplicaSets.
 
-**Key features**:
+### **Key features:**
 
 **Declarative Updates**: You describe the desired state, and Kubernetes makes it happen.
 
