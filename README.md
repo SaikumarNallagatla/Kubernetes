@@ -3,7 +3,7 @@ This repository have full Kubernetes Files
 Kubernetes Architecture: From Scratch to Advanced
 Welcome to the Kubernetes Architecture repository! This resource is designed to be a comprehensive guide to understanding Kubernetes, starting from its fundamental concepts and progressing to advanced topics and architectural considerations. Whether you're new to container orchestration or a seasoned professional looking to deepen your understanding, this repository aims to provide clear, concise, and well-structured information.
 
-Table of Contents
+# Table of Contents
 Introduction to Kubernetes
 
 What is Kubernetes?
@@ -146,44 +146,47 @@ Liveness and Readiness Probes
 
 Scaling Strategies
 
-1. Introduction to Kubernetes
+1. # Introduction to Kubernetes
 
-What is Kubernetes?
+## What is Kubernetes?
 
 Kubernetes (often abbreviated as K8s) is an open-source container orchestration platform designed to automate the deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery.
 
 At its core, Kubernetes helps you manage your containerized workloads and services, ensuring they run where and when you want them to, and scale up or down as needed.
 
-Why Kubernetes? The Problems it Solves
+**Why Kubernetes?** The Problems it Solves
 Before Kubernetes, managing containerized applications at scale was challenging due to issues like:
 
-Scaling: Manually scaling applications up or down based on demand.
+**Scaling:** Manually scaling applications up or down based on demand.
 
-Self-healing: Detecting and recovering from container failures.
+**Self-healing:** Detecting and recovering from container failures.
 
-Load Balancing: Distributing network traffic across multiple instances of an application.
+**Load Balancing**: Distributing network traffic across multiple instances of an application.
 
-Service Discovery: How applications find and communicate with each other.
+**Service Discovery:** How applications find and communicate with each other.
 
-Automated Rollouts/Rollbacks: Managing application updates with minimal downtime.
+**Automated Rollouts/Rollbacks:** Managing application updates with minimal downtime.
 
-Resource Utilization: Efficiently using server resources.
+**Resource Utilization:** Efficiently using server resources.
 
 Kubernetes addresses these problems by providing a robust framework for automating these operations.
 
-Key Benefits of Kubernetes
-Portability: Run your applications consistently across public clouds, private clouds, and on-premise environments.
+### Key Benefits of Kubernetes
 
-Scalability: Easily scale your applications horizontally with simple commands or automated scaling policies.
+**Portability:** Run your applications consistently across public clouds, private clouds, and on-premise environments.
 
-Resilience: Automatically recovers from failures, ensuring high availability of your applications.
+**Scalability:** Easily scale your applications horizontally with simple commands or automated scaling policies.
 
-Agility: Accelerates development cycles by automating deployment and management tasks.
+**Resilience:** Automatically recovers from failures, ensuring high availability of your applications.
 
-Cost Optimization: Better resource utilization leads to reduced infrastructure costs.
+**Agility**: Accelerates development cycles by automating deployment and management tasks.
 
-2. Kubernetes Fundamentals: The Building Blocks
-The Kubernetes Cluster: A High-Level View
+**Cost Optimization:** Better resource utilization leads to reduced infrastructure costs.
+
+2. # Kubernetes Fundamentals: The Building Blocks
+
+## The Kubernetes Cluster: A High-Level View
+
 A Kubernetes cluster consists of a set of worker machines, called nodes, that host containerized applications. Every cluster has at least one worker node.
 
 The worker nodes host the Pods that are the components of the application workload. The control plane manages the worker nodes and the Pods in the cluster.
@@ -191,7 +194,7 @@ The worker nodes host the Pods that are the components of the application worklo
 
 Core Concepts Explained
 
-Po**ds**
+## Pods
 
 The smallest deployable units of computing that you can create and manage in Kubernetes. A Pod (like a pea pod) encapsulates one or more containers (e.g., Docker containers), storage resources, a unique network IP, and options that govern how the containers should run.
 
