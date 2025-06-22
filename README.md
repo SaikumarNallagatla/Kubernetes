@@ -1,6 +1,7 @@
 # Kubernetes
 This repository have full Kubernetes Files
-## **Kubernetes Architecture:** From Scratch to Advanced
+## **Kubernetes Architecture:** 
+From Scratch to Advanced
 Welcome to the Kubernetes Architecture repository! This resource is designed to be a comprehensive guide to understanding Kubernetes, starting from its fundamental concepts and progressing to advanced topics and architectural considerations. Whether you're new to container orchestration or a seasoned professional looking to deepen your understanding, this repository aims to provide clear, concise, and well-structured information.
 
 # Table of Contents
@@ -154,14 +155,15 @@ Kubernetes (often abbreviated as K8s) is an open-source container orchestration 
 
 At its core, Kubernetes helps you manage your containerized workloads and services, ensuring they run where and when you want them to, and scale up or down as needed.
 
-### **Why Kubernetes?** The Problems it Solves
+### **Why Kubernetes?** 
+The Problems it Solves
 Before Kubernetes, managing containerized applications at scale was challenging due to issues like:
 
-### **Scaling:** Manually scaling applications up or down based on demand.
+**Scaling:** Manually scaling applications up or down based on demand.
 
-### **Self-healing:** Detecting and recovering from container failures.
+**Self-healing:** Detecting and recovering from container failures.
 
-**Load Balancing**: Distributing network traffic across multiple instances of an application.
+**Load Balancing:** Distributing network traffic across multiple instances of an application.
 
 **Service Discovery:** How applications find and communicate with each other.
 
@@ -194,17 +196,17 @@ The worker nodes host the Pods that are the components of the application worklo
 
 Core Concepts Explained
 
-## Pods
+## **Pods**
 
 The smallest deployable units of computing that you can create and manage in Kubernetes. A Pod (like a pea pod) encapsulates one or more containers (e.g., Docker containers), storage resources, a unique network IP, and options that govern how the containers should run.
 
 ## **Why Pods?**
 
-Co-location: Containers in a Pod are always co-located and co-scheduled on the same node.
+**Co-location:** Containers in a Pod are always co-located and co-scheduled on the same node.
 
-Shared Resources: They share network namespace, IP address, and can share storage volumes.
+**Shared Resources:** They share network namespace, IP address, and can share storage volumes.
 
-Single Logical Application: Ideal for closely coupled processes that need to share resources.
+**Single Logical Application:** Ideal for closely coupled processes that need to share resources.
 
 # Example: A simple Pod definition
 apiVersion: v1
@@ -255,7 +257,7 @@ spec:
         ports:
         - containerPort: 80
 
-# Services
+## Services
 Services define a logical set of Pods and a policy by which to access them. They enable loose coupling between dependent Pods. Even if Pods fail or are rescheduled, the Service provides a stable endpoint for communication.
 
 Service Types (briefly introduced here, detailed later):
@@ -282,27 +284,29 @@ spec:
       targetPort: 80 # Pod port
   type: ClusterIP
 
-# Namespaces
+## Namespaces
 Namespaces provide a mechanism for isolating groups of resources within a single Kubernetes cluster. They are used to divide cluster resources between multiple users or teams.
 
-Benefits:
+### Benefits:
 
-Resource Isolation: Prevents naming conflicts between different projects.
+**Resource Isolation:** Prevents naming conflicts between different projects.
 
-Access Control: RBAC (Role-Based Access Control) can be applied per namespace.
+**Access Control:** RBAC (Role-Based Access Control) can be applied per namespace.
 
-Resource Quotas: Limit resource consumption (CPU, memory) per namespace.
+**Resource Quotas:** Limit resource consumption (CPU, memory) per namespace.
 
 # Example kubectl commands for namespaces
 kubectl create namespace development
-kubectl get pods --namespace development # or -n development
+`kubectl get pods --namespace development `# 
+or
+ -n development
 
-Kubeconfig
+## Kubeconfig
 A kubeconfig file is a YAML file that contains information about clusters, users, and contexts (combinations of clusters and users). The kubectl command-line tool uses kubeconfig files to find the information it needs to choose a cluster and authenticate to that cluster's API server.
 
-Typically located at ~/.kube/config.
+Typically located at **~/.kube/config.**
 
-3. Diving Deeper: Kubernetes Cluster Architecture
+3. # Diving Deeper: Kubernetes Cluster Architecture
 Understanding the individual components of a Kubernetes cluster is crucial for advanced operations and troubleshooting.
 
 Control Plane (Master Node) Components
