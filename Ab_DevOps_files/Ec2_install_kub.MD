@@ -15,50 +15,61 @@ Navigate to the directory where your EC2 key pair (.pem file) is stored.
 
 Run the SSH command:
 
-Bash
-
+```Bash
 ssh -i your-key-pair.pem ubuntu@your-ec2-public-ip
+```
 Replace your-key-pair.pem with the name of your key pair file.
 Replace your-ec2-public-ip with the Public IPv4 DNS or Public IPv4 address of your EC2 instance.
+
 2. Update and Upgrade your EC2 Instance
 It's always a good idea to update and upgrade your system.
 
-Bash
+```Bash
 
 sudo apt update -y
 sudo apt upgrade -y
+```
+
 3. Install Docker
 Minikube uses Docker as a driver to run the Kubernetes cluster.
 
 Install necessary packages:
-Bash
+```Bash
 
 sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+```
 Add Docker's official GPG key:
-Bash
+```Bash
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
 Add Docker APT repository:
-Bash
+```Bash
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-Install Docker Engine:
-Bash
+```
 
+Install Docker Engine:
+
+```Bash
 sudo apt update -y
 sudo apt install docker-ce docker-ce-cli containerd.io -y
+```
 Add your user to the docker group (important for running Docker commands without sudo):
-Bash
+```Bash
 
 sudo usermod -aG docker ubuntu
+```
 Apply the group changes (you might need to log out and back in, or simply start a new terminal session):
-Bash
+```Bash
 
 newgrp docker
+```
 Verify Docker installation:
-Bash
+```Bash
 
 docker run hello-world
+```
 You should see a message confirming Docker is working.
 
 4. Install Kubectl
@@ -125,3 +136,7 @@ Delete Minikube cluster:
 Bash
 
 minikube delete
+
+
+
+
