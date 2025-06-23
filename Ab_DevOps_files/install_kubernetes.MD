@@ -89,7 +89,8 @@ Hyper-V: For Windows Pro/Enterprise/Education editions.
 KVM2: For Linux.
 
 Minimum System Resources
-2 CPUs or more: Kubernetes control plane and workloads need processing power.
+
+# 2. CPUs or more: Kubernetes control plane and workloads need processing power.
 
 2GB of free memory (RAM) or more: Essential for the VM and running containers.
 
@@ -102,7 +103,7 @@ Minikube: The tool to start and manage your local Kubernetes cluster.
 
 kubectl: The command-line tool for running commands against Kubernetes clusters.
 
-3. Choosing Your Local Kubernetes Environment
+# 3. Choosing Your Local Kubernetes Environment
 While several tools can set up a local Kubernetes cluster, we'll focus on Minikube for its ease of use and popularity for learning.
 
 Minikube (Recommended for Learning):
@@ -125,10 +126,10 @@ Cons: Different focus than a full-blown Kubernetes, though it's still Kubernetes
 
 For this guide, we will proceed with Minikube.
 
-4. Step-by-Step Installation: Minikube & Kubectl
+# 4. Step-by-Step Installation: Minikube & Kubectl
 Let's get your local Kubernetes cluster up and running!
 
-Step 1: Install a Hypervisor (e.g., VirtualBox or Docker Desktop)
+### **Step 1: Install a Hypervisor (e.g., VirtualBox or Docker Desktop)**
 Why this is required: Minikube needs an environment to run its single-node Kubernetes cluster. By default, it creates a small virtual machine (VM) on your system. A hypervisor like VirtualBox or the virtualization capabilities of Docker Desktop provides this VM environment.
 
 Option A: VirtualBox (Recommended if you don't use Docker Desktop)
@@ -141,44 +142,44 @@ Download and install Docker Desktop from docker.com/products/docker-desktop.
 
 After installation, ensure Kubernetes is enabled in Docker Desktop settings: Go to Settings -> Kubernetes -> Check Enable Kubernetes.
 
-Step 2: Install Minikube
+**Step 2: Install Minikube**
 Why this is required: Minikube is the tool that simplifies the process of running Kubernetes locally. It manages the lifecycle of your single-node cluster. The curl commands below will always fetch the latest stable release of Minikube.
 
 Choose the installation method based on your operating system:
 
 For Linux
-# Download the latest stable minikube binary
-# This URL is maintained by the Minikube project to always point to the latest stable release.
+Download the latest stable minikube binary
+This URL is maintained by the Minikube project to always point to the latest stable release.
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
-# Make it executable
+Make it executable
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-# Clean up the downloaded file
+Clean up the downloaded file
 rm minikube-linux-amd64
 
 For macOS
-# Install using Homebrew (recommended)
+Install using Homebrew (recommended)
 brew install minikube
 
-# If you don't have Homebrew, you can install it:
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+If you don't have Homebrew, you can install it:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Or manual download:
-# curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
-# sudo install minikube-darwin-amd64 /usr/local/bin/minikube
-# rm minikube-darwin-amd64
+Or manual download:
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+'''rm minikube-darwin-amd64'''
 
 For Windows (using PowerShell)
-# Download the latest stable minikube binary
-# This URL is maintained by the Minikube project to always point to the latest stable release.
+Download the latest stable minikube binary
+This URL is maintained by the Minikube project to always point to the latest stable release.
 curl.exe -Lo minikube.exe https://storage.googleapis.com/minikube/releases/latest/minikube-windows-amd64.exe
 
-# Move it to a directory in your PATH (e.g., C:\minikube or C:\Windows\System32)
-# For simplicity, you can put it in a dedicated folder and add that folder to your System PATH manually.
-# Example: Create C:\minikube and move minikube.exe there, then add C:\minikube to PATH.
-# Or just run it from where you downloaded it for now:
-# .\minikube.exe version
+Move it to a directory in your PATH (e.g., C:\minikube or C:\Windows\System32)
+For simplicity, you can put it in a dedicated folder and add that folder to your System PATH manually.
+Example: Create C:\minikube and move minikube.exe there, then add C:\minikube to PATH.
+Or just run it from where you downloaded it for now:
+.\minikube.exe version
 
 Important for Windows: Ensure the directory where minikube.exe is placed is added to your system's Path environment variable so you can run minikube from any directory in PowerShell or Command Prompt.
 
@@ -188,11 +189,11 @@ Why this is required: kubectl is the official command-line tool for Kubernetes. 
 Choose the installation method based on your operating system:
 
 For Linux
-# Download the latest stable kubectl binary
-# The `curl -L -s https://dl.k8s.io/release/stable.txt` part dynamically fetches the string of the latest stable version (e.g., v1.28.3).
+Download the latest stable kubectl binary
+The `curl -L -s https://dl.k8s.io/release/stable.txt` part dynamically fetches the string of the latest stable version (e.g., v1.28.3).
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
-# Validate the binary (optional but recommended)
+Validate the binary (optional but recommended)
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
