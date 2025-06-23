@@ -150,7 +150,9 @@ Choose the installation method based on your operating system:
 For Linux
 Download the latest stable minikube binary
 This URL is maintained by the Minikube project to always point to the latest stable release.
+``` bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+```
 
 Make it executable
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
@@ -168,7 +170,7 @@ If you don't have Homebrew, you can install it:
 Or manual download:
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 sudo install minikube-darwin-amd64 /usr/local/bin/minikube
-'''rm minikube-darwin-amd64'''
+rm minikube-darwin-amd64
 
 For Windows (using PowerShell)
 Download the latest stable minikube binary
