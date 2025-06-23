@@ -165,12 +165,15 @@ Install using Homebrew (recommended)
 brew install minikube
 
 If you don't have Homebrew, you can install it:
+``` bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
+```
 Or manual download:
+```
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 rm minikube-darwin-amd64
+```
 
 For Windows (using PowerShell)
 Download the latest stable minikube binary
