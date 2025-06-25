@@ -33,9 +33,41 @@ sudo apt upgrade -y
 # 3. Install Docker
 Minikube uses Docker as a driver to run the Kubernetes cluster.
 
-Install necessary packages:
-```Bash
 
+Update your system and install necessary packages:
+
+```Bash
+sudo apt update
+sudo apt install ca-certificates curl gnupg lsb-release -y
+```
+
+This ensures your system is up to date and has the tools needed to add the key and repository.
+
+Add Docker's official GPG key:
+
+```Bash
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+This downloads the GPG key and stores it securely on your system.
+
+Add the Docker repository to your APT sources:
+
+```Bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+This tells your system where to find the Docker packages.
+
+After you've run these commands, you can then try your original installation commands:
+
+```Bash
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+```
+
+```Bash
 sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
 ```
 Add Docker's official GPG key:
