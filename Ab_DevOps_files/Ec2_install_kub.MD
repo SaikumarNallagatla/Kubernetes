@@ -88,50 +88,49 @@ You should see a message confirming Docker is working.
 kubectl is the command-line tool for running commands against Kubernetes clusters.
 
 Download kubectl:
-```Bash
 
+```Bash
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 ```
 Install kubectl:
-```Bash
 
+```Bash
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```
 Verify kubectl installation:
-```Bash
 
+```Bash
 kubectl version --client
 ```
 # 5. Install Minikube
 Minikube helps you run a single-node Kubernetes cluster locally.
 
 Download Minikube:
-```Bash
 
+```Bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 ```
 Install Minikube:
-```Bash
 
+```Bash
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 Verify Minikube installation:
-```Bash
 
+```Bash
 minikube version
 ```
 # 6. Start Minikube
 Now, start your Kubernetes cluster using Minikube with the Docker driver.
 
 ```Bash
-
 minikube start --driver=docker
 ```
 This command might take a few minutes as it downloads necessary components.
 
 Check Minikube status:
-```Bash
 
+```Bash
 minikube status
 ```
 You should see host: Running, kubelet: Running, apiserver: Running, and kubeconfig: Configured.
@@ -140,24 +139,24 @@ You should see host: Running, kubelet: Running, apiserver: Running, and kubeconf
 Once Minikube is running, you can use kubectl to interact with your cluster.
 
 Get cluster information:
-```Bash
 
+```Bash
 kubectl cluster-info
 ```
 List all pods in the kube-system namespace:
-```Bash
 
+```Bash
 kubectl get pods -A
 ```
 # 8. Stopping and Deleting Minikube
 Stop Minikube:
-```Bash
 
+```Bash
 minikube stop
 ```
 Delete Minikube cluster:
-```Bash
 
+```Bash
 minikube delete
 ```
 Happy Learning!
