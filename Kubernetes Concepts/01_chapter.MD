@@ -1,4 +1,4 @@
-```markdown
+
 # Kubernetes Explained – Simple and Complete Guide
 
 ## Table of Contents
@@ -15,7 +15,7 @@
 - [Summary Table of All Components](#summary-table-of-all-components)
 - [How to Use This in Real Life](#how-to-use-this-in-real-life)
 
----
+
 
 ## What is Kubernetes?
 Kubernetes (also called K8s) is an open-source system for running and managing container-based applications. It helps you run your software (apps and services) across many computers, handle failures, and keep everything running without you having to do all the work manually.
