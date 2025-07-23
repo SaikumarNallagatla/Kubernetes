@@ -401,3 +401,5 @@ kubectl delete -f deployment.yaml
 Whether you're a DevOps engineer managing hundreds of microservices or a developer deploying your first application, Kubernetes provides the tools and automation to make container management simple and reliable.
 
 The key is understanding that Kubernetes is like having a smart operations team that never sleeps, always watching your applications and making sure they run perfectly.
+
+
