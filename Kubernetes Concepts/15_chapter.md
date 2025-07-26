@@ -187,3 +187,151 @@ HPA uses the **CPU requested** value to calculate scaling decisions.
 ---
 
 ✅ Next Topic: **Namespaces, Quotas & LimitRanges** – Shall we go ahead?
+
+# Kubernetes: Namespaces, ResourceQuotas & LimitRanges - Explained with DevOps Use Cases
+
+---
+
+## 🔢 What is a **Namespace** in Kubernetes?
+
+A **Namespace** is a logical partition within a Kubernetes cluster, allowing multiple teams or projects to work in isolation without interfering with each other.
+
+### 💡 Why Use Namespaces?
+
+* To separate **environments** (Dev, QA, Prod)
+* To isolate **teams/projects**
+* To apply **resource limits** (quotas, limits)
+* To organize access control (RBAC)
+
+### 📃 YAML Example:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev-team
+```
+
+---
+
+## 📊 What is a **ResourceQuota**?
+
+A **ResourceQuota** limits the total resources (like CPU, memory, storage, or number of pods) that can be consumed by all resources inside a namespace.
+
+### 📊 Use Case:
+
+To prevent one team from using too many cluster resources.
+
+### 📃 YAML Example:
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-team-quota
+  namespace: dev-team
+spec:
+  hard:
+    requests.cpu: "2"
+    requests.memory: "2Gi"
+    limits.cpu: "4"
+    limits.memory: "4Gi"
+    pods: "10"
+```
+
+### 🔍 Breakdown:
+
+* `requests.cpu`: Guaranteed minimum CPU across namespace.
+* `limits.cpu`: Max CPU usage.
+* `pods`: Max number of Pods allowed in the namespace.
+
+---
+
+## 📊 What is a **LimitRange**?
+
+A **LimitRange** sets default CPU/memory limits **per container** in a namespace when users don't specify them.
+
+### 🔺 Use Case:
+
+Ensures containers don't overuse resources or miss defining limits.
+
+### 📃 YAML Example:
+
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: dev-limit-range
+  namespace: dev-team
+spec:
+  limits:
+  - default:
+      cpu: 500m
+      memory: 256Mi
+    defaultRequest:
+      cpu: 200m
+      memory: 128Mi
+    type: Container
+```
+
+---
+
+## 📚 Real-Life Analogy:
+
+* **Namespace** = A separate room in a shared office.
+* **ResourceQuota** = Only 10 chairs allowed in the room (total limit).
+* **LimitRange** = Each person can use only 1 chair (per-container limit).
+
+---
+
+## 🧱 DevOps Principles Applied
+
+| Principle           | Usage                                              |
+| ------------------- | -------------------------------------------------- |
+| Resource Efficiency | Prevents one team from overusing cluster resources |
+| Automation          | YAMLs and GitOps tools manage limits declaratively |
+| Security            | Namespaces + RBAC = controlled access              |
+| Scalability         | Helps organize and scale multi-team clusters       |
+
+---
+
+## 🪑 Pro Tips:
+
+* Always use namespaces in production-grade clusters.
+* Apply ResourceQuotas to prevent cost overruns.
+* Use LimitRanges to avoid container misconfigurations.
+
+---
+
+## 🎨 Common Interview Questions:
+
+1. What is the purpose of a namespace?
+2. How do ResourceQuotas protect the cluster?
+3. What's the difference between LimitRange and ResourceQuota?
+4. Can you assign different quotas to different teams?
+5. How do LimitRanges help in multi-tenant environments?
+
+---
+
+## ❓ FAQs:
+
+**Q: Can we apply multiple ResourceQuotas per namespace?**
+A: No. One ResourceQuota per namespace. But you can define multiple resource types inside it.
+
+**Q: Do LimitRanges override ResourceQuotas?**
+A: No. They work together. LimitRange defines per-container defaults, ResourceQuota defines overall caps.
+
+**Q: How to monitor resource consumption per namespace?**
+A: Use tools like Prometheus, Grafana, or `kubectl top namespace`.
+
+---
+
+## 📊 GitOps Practice Example:
+
+* Store these YAMLs in a Git repo
+* Use ArgoCD/Flux to sync to the cluster
+* Use Kustomize to manage overrides per environment
+
+---
+
+Next topic ➡ **PodSecurityContext & Best Security Practices**
