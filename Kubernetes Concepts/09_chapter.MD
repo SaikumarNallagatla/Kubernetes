@@ -268,3 +268,115 @@ Try creating a pod that:
 
 Let me know if you want those YAMLs added here too!
 
+# Taints and Tolerations in Kubernetes
+
+## 📌 Concept
+**Taints and Tolerations** are used in Kubernetes to control **which pods can be scheduled on which nodes**. This allows you to dedicate certain nodes for specific workloads and avoid scheduling other pods on them.
+
+### 🎯 Why we use it:
+- Prevent general workloads from being scheduled on special-purpose nodes.
+- Ensure only specific pods with matching tolerations land on tainted nodes.
+- Enforce isolation for compliance, performance, or security.
+
+---
+
+## 🧠 Taints
+Taints are applied on **nodes**. They mark a node as **unsuitable** for pods **unless** the pod has a matching toleration.
+
+### 🧾 Syntax
+```bash
+kubectl taint nodes <node-name> key=value:effect
+```
+
+### 🔥 Effects:
+- `NoSchedule`: Pod won't be scheduled unless it has a matching toleration.
+- `PreferNoSchedule`: Kubernetes will try to avoid but not strictly enforce.
+- `NoExecute`: Existing pods without toleration will be evicted.
+
+### ✅ Example:
+```bash
+kubectl taint nodes node1 type=highmem:NoSchedule
+```
+This prevents any pod from scheduling on node1 unless the pod has a toleration.
+
+---
+
+## 🧩 Tolerations
+Tolerations are applied on **pods**. They allow a pod to be scheduled on nodes **with matching taints**.
+
+### 🧾 YAML Example:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: toleration-pod
+spec:
+  tolerations:
+  - key: "type"
+    operator: "Equal"
+    value: "highmem"
+    effect: "NoSchedule"
+  containers:
+  - name: nginx
+    image: nginx
+```
+This pod can run on a node that is tainted with `type=highmem:NoSchedule`.
+
+---
+
+## 🔄 Flow Diagram (Taints and Tolerations)
+```
+    +-----------------+           +-----------------+
+    |     Node        |           |      Pod        |
+    | taint:         |           | toleration:     |
+    | type=highmem   |  <------> | type=highmem     |
+    | effect=NoSched |           | effect=NoSched   |
+    +-----------------+           +-----------------+
+        Node Rejects pod UNLESS Toleration matches
+```
+
+---
+
+## 🔍 Common Doubts Clarified
+
+### ❓ What happens if a pod doesn’t have a toleration?
+It **won’t be scheduled** on nodes with `NoSchedule` taint.
+
+### ❓ What if a node has `NoExecute` taint?
+Pods **without matching toleration will be evicted** immediately.
+
+### ❓ Can I use multiple taints on a node?
+Yes, a node can have multiple taints, and pods must tolerate all of them.
+
+### ❓ What’s the difference between Taints vs NodeSelector or Node Affinity?
+- **NodeSelector/Affinity**: Pod chooses the node.
+- **Taints/Tolerations**: Node restricts the pod.
+
+---
+
+## 🧠 General Analogy Example
+- Imagine a room (node) marked as "VIP only" (taint).
+- Only guests (pods) with a VIP pass (toleration) can enter.
+- Normal guests without the pass can’t enter.
+
+---
+
+## 🛠 Real-world DevOps Use Case:
+You have GPU nodes in your cluster. You taint those nodes so only ML workloads with matching tolerations can be scheduled there.
+```bash
+kubectl taint node gpu-node gpu=true:NoSchedule
+```
+Then apply toleration to your ML training pods:
+```yaml
+spec:
+  tolerations:
+  - key: "gpu"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+```
+
+---
+
+If this is clear, I’ll proceed with **Resource Requests and Limits** in the next repo.
+
