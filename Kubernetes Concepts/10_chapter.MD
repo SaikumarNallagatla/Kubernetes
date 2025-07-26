@@ -338,5 +338,165 @@ That’s what VPA does for your containers!
 
 ---
 
+# Kubernetes Autoscaling: HPA vs VPA
+
+Autoscaling is a core part of cloud-native application design. Kubernetes provides two types of resource autoscalers:
+
+* **HPA (Horizontal Pod Autoscaler)**
+* **VPA (Vertical Pod Autoscaler)**
+
+In this document, we will explore both concepts with detailed explanations, YAML examples, real-world DevOps use cases, and when to choose one over the other.
+
+---
+
+## 🌀 Horizontal Pod Autoscaler (HPA)
+
+### 🔍 What is HPA?
+
+HPA **automatically increases or decreases the number of pods** in a Deployment, ReplicaSet, or StatefulSet based on observed CPU or memory usage (or custom metrics).
+
+### ✅ Requirements
+
+* `resources.requests.cpu` or `memory` **must be defined** in the pod spec.
+* Target workloads: **Deployment**, **StatefulSet**, or **ReplicaSet**.
+* Metrics Server should be running.
+
+### 📂 Example: Deployment + HPA
+
+```yaml
+# my-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: myregistry/myapp:latest
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+```
+
+```yaml
+# my-app-hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60
+```
+
+### 🔁 How HPA works:
+
+* Watches CPU/memory metrics of the pods.
+* If utilization > 60%, new pods are added.
+* If utilization < 60%, pods are removed (minimum is 2 in this case).
+
+---
+
+## 🧱 Vertical Pod Autoscaler (VPA)
+
+### 🔍 What is VPA?
+
+VPA **automatically adjusts the CPU and memory resource requests/limits** for containers in a pod based on usage over time.
+
+### ✅ Requirements
+
+* Works best with low replica workloads.
+* Often used with **StatefulSets**, **Jobs**, **batch workloads**, etc.
+* Should not be used along with HPA on the same metric (like CPU).
+
+### 📂 VPA YAML Example
+
+```yaml
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: my-app-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: my-app
+  updatePolicy:
+    updateMode: "Auto"
+```
+
+---
+
+## 🤝 HPA vs VPA: Differences & Use Cases
+
+| Feature              | HPA                                        | VPA                          |
+| -------------------- | ------------------------------------------ | ---------------------------- |
+| Scales               | Number of pods                             | Resource requests/limits     |
+| Metrics used         | CPU, Memory, Custom Metrics                | CPU, Memory                  |
+| Good for             | Stateless apps, Web APIs                   | Stateful apps, batch jobs    |
+| Use with             | Deployment, StatefulSet                    | Deployment, StatefulSet, Job |
+| Real-time or History | Real-time metrics                          | Historical usage over time   |
+| Conflict             | Should not use HPA + VPA for same resource |                              |
+
+---
+
+## 🤔 Common DevOps Doubts
+
+### ❓When should I use HPA?
+
+* Your app handles traffic spikes.
+* Stateless service (e.g. frontend, APIs).
+* Need to scale based on load.
+
+### ❓When should I use VPA?
+
+* Fixed number of pods.
+* Need optimal resource allocation.
+* Example: Redis, Kafka brokers, ML jobs.
+
+### ❓Can we use both together?
+
+* Yes, but **only if metrics are different**:
+
+  * HPA → scale pods based on CPU
+  * VPA → adjust memory only
+
+---
+
+## 📌 Summary for DevOps Engineers
+
+* Always **define CPU and memory requests/limits** for autoscaling to work.
+* Choose **HPA** for scaling **horizontally (more pods)**.
+* Choose **VPA** for scaling **vertically (more CPU/RAM)**.
+* Monitor scaling behavior using `kubectl describe hpa/vpa`.
+* Combine autoscaling with monitoring tools like Prometheus, Datadog for better insight.
+
+---
+
+If you're building **cloud-native scalable apps**, mastering both HPA and VPA is essential for any Kubernetes-focused DevOps role.
 
 
